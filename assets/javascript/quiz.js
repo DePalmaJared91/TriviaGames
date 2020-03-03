@@ -88,7 +88,7 @@ let questions = [
 	let count = 0;
 	const questionTime =10; //10s
 	const gaugeWidth = 150;//150px
-	constgaugeUnit = gaugeWidth / questionTime;
+	const gaugeUnit = gaugeWidth / questionTime;
 	let Timer; 
 	let score = 0;
 
@@ -102,9 +102,7 @@ choiceA.innerHTML = q.choiceA;
 choiceB.innerHTML= q.choiceB;
 choiceC.innerHTML = q.choiceC;
 /////PICK UP HERE
-
-
-	}
+}
 
 
 let lastQuestionIndex = questions.length - 1;
@@ -117,66 +115,112 @@ function renderQuestion() {
 	choiceA.innerHTML = q.choiceA;
 	choiceB.innerHTMl = q.choiceB;
 	choiceC.innerHTML = q.choiceC;
-
-
-
-
 }
-runningQuestionIndex = 0;
-renderQuestion()
-runningQuestionIndex++
-renderQuestion()
 
-function progressRender() {
-	for (let qIndex = 0; qIndex <= lastQuestionIndex; qIndex++) {
 
-		progress.innerHtmL += "<div class='prog' id= " + qIndex + "></div>";
+
+start.addEventListener("click", startQuiz);
+//Start Quiz
+function startQuiz(){
+start.style.display= "none";
+renderQuestion();
+quiz.style.display = "block"
+renderProgress();
+renderCounter();
+TIMER = setInterval(renderCounter,1000);
+}
+
+//render progress
+function renderProgress(){
+	for(let qIndex = 0 ; qIndex<= lastQuestion; qIndex++){
+
+		progress.innerHTML += "<div class='prog' id="+qIndex+"></div>";
+
 	}
 }
 
-function answerIsCorrect() {
-	document.getElementById(runningQuestionIndex).style.backgroundColor = "green"
-}
-function answerIsWrong() {
-	document.getElementById(runningQuestionIndex).style.backgroundColor = "red";
+//counter render
 
+function renderCounter(){
+	if(count <= questionTime){
+		counter.innerHTML = count;
+		timeGauge.style.width = count * gaugeUnit + "px";
+		count++
 
-}
-const questionTime = 15; 
-const gaugeWidth = 150;
-let count = 0;
-const gaugeProgressUnit = gaugeWidth/questionTime;
-function counterRender() {if ( count<=questionTime ) {
-	counter.innerHTML = count;
-	timeGauge.style.width = gaugeProgressUnit * count + "px";
-	count++;} else
-	{count = 0;
-	answerIsWrong();
-	if (runningQuestionIndex < lastQuestionIndex){
-		runningQuestionIndex++;
-		questionRender( );
-	} else{clearInterval(TIMER);
+	}else{
+		count= 0
+		//change progress color to red
+		answerIsWrong();
+		if(runningQuestion < lastQuestion){
+			runningQuestion++;
+			renderQuestion();
+
+		}else{//end quiz show score
+			clearInterval(TIMER);
+			scoreRender();
+
+		}
 	}
 }
-	let score=[0];
-fucntion checkAnswer(answer) {if (questions[runningQuestionIndex].correct == answer){
-	score++;
-	answerIsCorrect();
-} else{
+
+//check answer
+function checkAnswer(answer{
+	if( answer == questions[runningQuestion].correct){
+	//answer is correct	
+		score++;
+// change progress color to red
+answerIsCorrect();
+}else{
+	//answer is wrong
+	//change progress colo to red
 	answerIsWrong();
 }
-if(runningQuestionIndex < lastQuestionIndex){
-	count=0;
-	runningQuestionIndex++;
-	questionRender();
-} else{ 
+count=0
+if (runningQuestion < lastQuestion){
+	runningQuestion++;
+	renderQuestion();
+}else{
+	//end quiz show score
 	clearInterval(TIMER);
 	scoreRender();
-	
-}
-}
 
-}
+}}
+
+//answer is correct
+ function answerIsCorrect(){
+	 document.getElementById(runningQuestion).style.backgroundColor = "#0f0";
+	}
+	//answer is wrong
+	function answerIswrong(){
+		document.getElementById(runningQuestion).style.backgroundColor = "f00";
+
+	}
+	//score render
+	function scoreRender(){
+		scoreDiv.style.display = "block";
+
+		//calculate the amount of the question percent answered by the user
+		const scorePerCent= Math.round(100 * socre/questions.length);
+		//choosethe image based on the scorePerCent
+		let img = (scorePerCent >= 80) ? "img/5.png":
+		(scorePercent >= 60) ? "img/4.png":
+		(scorePercent >= 40) ? "img/3.png":	
+		(scorePercent >= 20) ? "img/2.png":
+		"img/1.png";
+		score.Div.innerHTMl = "<img src="+ ">";
+		scorediv.innerHTML += "<p>" + scorePerCent + "%</p>";
+	
+	
+	
+	
+	}
+
+
+ 
+
+
+
+
 
 
 
