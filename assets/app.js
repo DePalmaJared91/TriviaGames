@@ -82,6 +82,30 @@ let questions = [
 	
 	];
 
+	//:variables
+	const lastQuestion = questions.length - 1;
+	let runningQuestion = 0;
+	let count = 0;
+	const questionTime =10; //10s
+	const gaugeWidth = 150;//150px
+	constgaugeUnit = gaugeWidth / questionTime;
+	let Timer; 
+	let score = 0;
+
+	//render a question
+	function renderQuestion(){
+let q = questions[runningQuestion];
+
+question.innerHTML = "<p>"+ q.question +"</p>";
+qImg.innerHTML ="<img src"+ q.imgSrc + imgSrc +">";
+choiceA.innerHTML = q.choiceA;
+choiceB.innerHTML= q.choiceB;
+choiceC.innerHTML = q.choiceC;
+/////PICK UP HERE
+
+
+	}
+
 
 let lastQuestionIndex = questions.length - 1;
 let runningQuestionIndex = 0;
