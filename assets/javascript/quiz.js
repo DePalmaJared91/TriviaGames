@@ -1,31 +1,31 @@
 const start = document.getElementById("start");
 const quiz = document.getElementById("quiz");
-const qImg = document.getElementById("qImg");
 const question = document.getElementById("question");
-const counter = document.getElementById("counter");
-const timeGauge = document.getElementById("timeGauge");
+const qImg = document.getElementById("qImg");
 const choiceA = document.getElementById("A");
 const choiceB = document.getElementById("B");
 const choiceC = document.getElementById("C");
+const counter = document.getElementById("counter");
+const timeGauge = document.getElementById("timeGauge");
 const progress = document.getElementById("progress");
-const scoreContainer = document.getElementById("scoreContainer");
+const scoreDiv = document.getElementById("scoreDiv");
 
 // question & answer array
 let questions = [
 	{
-		question: "What was Yale University's name between 1701 and 1716?",
-		imgSrc: "images/collegaiteschool.jpeg",
-		choiceA: "The Ivy School",
-		choiceB: "The British East India School",
-		choiceC: "The  Collegiate School",
+		question: "Originally named The Collegiate Shcool, Yale University took on its new name in what year?",
+		imgSrc: "images/collegiateschool.jpeg",
+		choiceA: "1770",
+		choiceB: "1778",
+		choiceC: "1701",
 		correct: "C",
 	},
 	{
-		question: "What was Yale University's name between 1701 and 1716?",
-		imgSrc: "images/collegaiteschool.jpeg",
-		choiceA: "The Ivy School",
-		choiceB: "The British East India School",
-		choiceC: "The  Collegiate School",
+		question: "The Yale Daily News is the country's oldest collegiate newspaper which has been in print since. . . ?",
+		imgSrc: "images/YDN.jpeg",
+		choiceA: "1922",
+		choiceB: "1791",
+		choiceC: "1878",
 		correct: "C",
 	},
 	{
