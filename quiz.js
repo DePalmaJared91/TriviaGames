@@ -8,219 +8,139 @@ const choiceC = document.getElementById("C");
 const counter = document.getElementById("counter");
 const timeGauge = document.getElementById("timeGauge");
 const progress = document.getElementById("progress");
-const scoreDiv = document.getElementById("scoreDiv");
-
-// question & answer array
+const scoreDiv = document.getElementById("score");
+// create questions
 let questions = [
 	{
-		question: "Originally named, The Collegiate School, Yale University took on its new name in what year?",
-		imgSrc: "../img/collegiateschool.jpeg",
+		question: "Originally named The Collegiate Shcool, Yale University took on its new name in what year?",
+		imgSrc: "img/collegiateschool.jpeg",
 		choiceA: "1770",
 		choiceB: "1778",
-		choiceC: "1701",
+		choiceC: "1716",
 		correct: "C"
-	},
-	{
+	},{
 		question: "The Yale Daily News is the country's oldest collegiate newspaper which has been in print since. . . ?",
-		imgSrc: "../img/YDN.jpeg",
+		imgSrc: "img/YDN.jpeg",
 		choiceA: "1922",
 		choiceB: "1791",
 		choiceC: "1878",
+		choiceD: "1809",
 		correct: "C"
-	},
-	{
-		question: "Nine of Yale's ten founders taught at ______ University, because their school stopped requiring freshmen to study biblical Hebrew?",
-		imgSrc: "..//img/Harvard.jpg",
-		choiceA: "Harvard",
-		choiceB: "Princeton",
-		choiceC: "Brown",
+	},{
+		question: "The Collegiate School was renamed Yale College to recognize a gift from . . .",
+		imgSrc: "img/YDN.jpeg",
+		choiceA: "British East India Company",
+		choiceB: "Imperial Spain",
+		choiceC: "Queen Yale",
 		correct: "A"
-	},
+	}];
 
 
-];
-
-
-
-//:variables
-let lastQuestionIndex = questions.length - 1; 
-let runningQuestionIndex = 0;
-
-const questionTime = 10; //15s
+const lastQuestion = questions.length - 1;
+let runningQuestion = 0;
+let count=0;
+const questionTime = 10; //10s
 const gaugeWidth = 150;//150px
-let count = 0;
-const gaugeProgressUnit = gaugeWidth / questionTime;
-
+const gaugeUnit = gaugeWidth / questionTime;
 let TIMER;
 let score = 0;
 
-//start quiz
-start.addEventListener("click", startQuiz);
-
-function startQuiz() {
-
-	start.style.display = "none";
-	counterRender();
-	
-	renderQuestion();
-	startQuiz.style.display = display;
-	progressRender();
-	
-	TIMER = setInterval(counterRender, 1000);
-}
-
-
-
-
-
-
-
-
-
-//render a question
+//render Question
 function renderQuestion() {
-	let q = questions[runningQuestionIndex];
-	qImg.innerHTML = "<img src" + q.imgSrc + ">";
+	let q = questions[runningQuestion];
 	question.innerHTML = "<p>" + q.question + "</p>";
-	
+	qImg.innerHTML = "<img src" + q.imgSrc + ">";
 	choiceA.innerHTML = q.choiceA;
 	choiceB.innerHTML = q.choiceB;
 	choiceC.innerHTML = q.choiceC;
 }
- runningQuestionIndex = 0;
-renderQuestion();
-runningQuestionIndex++;
-renderQuestion;
+start.addEventListener("click", startQuiz);
+
+function startQuiz(){
+	start.style.display = "none";
+	renderQuestion();
+	quiz.style.display = "block";
+	renderProgress();
+	answerIsWrong();
+	renderCounter();
+	TIMER=setInterval(renderCounter, 1000);
+}
 
 
-
-//progress Render
-function progressRender() {
-	for (let qIndex = 0; qIndex <= lastQuestionIndex; qIndex++) {
-
-		progress.innerHTML += "<div class='prog' id=" + qIndex + "></div>";
-
+function renderProgress() {
+	for (let qIndex = 0; qIndex <= lastQuestion; 
+		qIndex++) {
+		progress.innerHTML += "<div class='prog' id="+
+		 qIndex + "></div>";
 	}
 }
-function answerIsCorrect() {
-	document.getElementById(runningQuestionIndex).style.backgroundColor = "green";
-}
-//answer is wrong
-function answerIsWrong() {
-	document.getElementById(runningQuestionIndex).style.backgroundColor = "red";
-}
-
-///
-
-
-
-
-
-
-
 //counter render
 
 
 
-
-const gaugeProgressUnit = gaugeWidth / questionTime;
-
-
-
-
-
-
-
-
-function counterRender() {
+function renderCounter() {
 	if (count <= questionTime) {
 		counter.innerHTML = count;
-		timeGauge.style.width = gaugeProgressUnit * count + "px";
-		count++;
-
+		timeGauge.style.width = count * gaugeUnit + "px";
+		count++
 	} else {
 		count = 0
+	}
 		//change progress color to red
 		answerIsWrong();
-		if (runningQuestionIndex < lastQuestionIndex) {
-			runningQuestionIndex++;
-			questionRender();
-//end quiz show score
-		} else {  clearInterval(TIMER);
+		if (runningQuestion < lastQuestion) {
+			runningQuestion++;
+			renderQuestion();
+		} else {//end quiz show score
+			clearInterval(TIMER);
 			scoreRender();
-
 		}
 	}
+
+	//Check Answer
+
+function checkAnswer(answer){
+	if(answer == questions[runningQuestion].correct){
+	//answer is correct	
+	score++;
+	// change progress color to green
+	answerIsCorrect();
+}else {
+	//answer is wrong
+	//change progress color to red
+	answerIsWrong();
 }
-let TIMER =
-setInterval(counterRender,1000);
-clearInterval();
-
-
-
-
-//check answer
-let score = 0;
-function checkAnswer(answer) {
-	if(questions[runningQuestionIndex].correct == answer) {
-		//answer is correct	
-		score++;
-		// change progress color to red
-		answerIsCorrect();
-	} else {
-		//answer is wrong
-		//change progress color to red
-		answerIsWrong();
-	}
-	
-	if (runningQuestionIndex < lastQuestionIndex) {
-		count=0
-		runningQuestion++;
-		questionRender();
-	} else {
-		//end quiz show score
-		clearInterval(TIMER);
-		scoreRender();
-
-	}
 }
-//These lines below may need tyo get deleted ....
+count=0
+if (runningQuestion < lastQuestion) {
+	runningQuestion++;
+	renderQuestion();
+} else {
+	//end quiz show score
+	clearInterval(TIMER);
+	scoreRender();
+}
 //answer is correct
-//function answerIsCorrect() {
-	//document.getElementById(runningQuestionIndex).style.backgroundColor = "#0f0";
-
+function answerIsCorrect() {
+	document.getElementById(runningQuestion).style.backgroundColor = "#0f0";
+}
 //answer is wrong
-//function answerIswrong() {
-	//document.getElementById(runningQuestionIndex).style.backgroundColor = "f00";
-
-//}
-//LInes ABove may be deleted.....
+function answerIswrong() {
+	document.getElementById(runningQuestion).style.backgroundColor = "f00";
+}
 //score render
 function scoreRender() {
 	scoreDiv.style.display = "block";
-
 	//calculate the amount of the question percent answered by the user
-	const scorePerCent = Math.round(100 * score / questions.length);
+	const scorePerCent = Math.round(100 * 
+		score / questions.length);
 	//choose the image based on the scorePerCent
 	let img = (scorePerCent >= 80) ? "img/5.png" :
 		(scorePercent >= 60) ? "img/4.png" :
 			(scorePercent >= 40) ? "img/3.png" :
 				(scorePercent >= 20) ? "img/2.png" :
 					"img/1.png";
+	
 	scoreDiv.innerHTMl = "<img src=" + img + ">";
-	scorediv.innerHTML += "<p>" + scorePerCent + "%</p>";
-
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
+	scoreDiv.innerHTMl = "<img src=" + ">";
+	scorediv.innerHTML += "<p>" + scorePerCent + "%</p>";}

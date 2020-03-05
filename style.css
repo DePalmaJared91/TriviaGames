@@ -5,7 +5,7 @@ body{
 
 #container{
     margin : 20px auto;
-    background-color: rgb(100, 100, 226);
+    background-color: hsla(240, 1%, 59%, 0.897);
     height: 500px;
     width : 700px;
     border-radius: 5px;
@@ -18,25 +18,27 @@ body{
     word-break: break-all;
     width:100px;
     height:150px;
-    border : 2px solid rgb(239, 239, 243);
+    border : 2px solid rgb(17, 5, 51);
     text-align: center;
     cursor: pointer;
     position: absolute;
     left:300px;
     top:50px;
-    color : lightgrey;
+    color : white;
 }
 #start:hover{
-    border: 3px solid lightseagreen;
-    color : lightseagreen;
-}
+    border: 3px solid rgb(17, 5, 51);
+    color : rgb(17, 5, 51);
+
+    //Need to look at this 
 
 #qImg{
-    width : 200px;
-    height : 200px;
+    width: 200px;
+    height: 200px;
     position: absolute;
-    left : 0px;
+    left: 0px;
     top : 0px;
+    border-top-left-radius: 5px;
 }
 #qImg img{
     width : 200px;
@@ -68,13 +70,13 @@ body{
     display: inline-block;
     width : 135px;
     text-align: center;
-    border : 1px solid grey;
+    border : 1px solid;
     border-radius: 5px;
     cursor: pointer;
     padding : 5px;
 }
 .choice:hover{
-    border : 2px solid grey;
+    border : 2px solid rgb(17, 5, 51);
     font-weight: bold;
 }
 
@@ -92,7 +94,7 @@ body{
     width : 150px;
     height : 10px;
     border-radius: 10px;
-    background-color: lightgray;
+    background-color: rgb(17, 5, 51);
     margin-left : 25px;
 }
 #timeGauge{
@@ -118,6 +120,7 @@ body{
     border-radius: 50%;
     margin-left : 5px;
     margin-right : 5px;
+
 }
 #scoreDiv{
     margin : 20px auto;
